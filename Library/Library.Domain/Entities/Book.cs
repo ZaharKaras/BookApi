@@ -9,8 +9,8 @@ namespace Library.Domain.Entities
 {
     public class Book
     {
-        [Key]
-        public string ISBN { get; set; }
+        public int Id { get; set; }
+        public string? ISBN { get; set; }
         public string? Name { get; set; }
         public string? Genre { get; set; }
         public string? Description { get; set; }

@@ -24,8 +24,11 @@ namespace Library.DataService.Migrations
 
             modelBuilder.Entity("Library.Domain.Entities.Book", b =>
                 {
-                    b.Property<string>("ISBN")
-                        .HasColumnType("text");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Author")
                         .HasColumnType("text");
@@ -39,13 +42,16 @@ namespace Library.DataService.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("text");
 
+                    b.Property<string>("ISBN")
+                        .HasColumnType("text");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<DateTime>("ReturnTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.HasKey("ISBN");
+                    b.HasKey("Id");
 
                     b.ToTable("Books");
                 });
