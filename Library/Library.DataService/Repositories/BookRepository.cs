@@ -28,7 +28,7 @@ namespace Library.DataService.Repositories
             {
                 var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
-                if (result != null)
+                if (result is null)
                 {
                     return false;
                 }
@@ -51,7 +51,7 @@ namespace Library.DataService.Repositories
             {
                 var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-                if (result == null)
+                if (result is null)
                     return false;
 
                 result.ISBN = entity.ISBN;
