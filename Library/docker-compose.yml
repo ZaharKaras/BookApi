@@ -1,0 +1,32 @@
+version: '3.9'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  app:
+    depends_on:
+      - "app_db"
+    container_name: library-services
+    ports:
+      - "8088:80" 
+    build:
+      context: .
+    networks:
+      - dev
+  app_db:
+    container_name: app_db
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 11012004
+      POSTGRES_DB: library
+    ports:
+      - "5432:5432"
+    networks:
+      - dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:

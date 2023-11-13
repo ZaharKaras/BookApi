@@ -14,7 +14,38 @@ namespace Library.DataService.Data
         {
             Database.EnsureCreated();
         }
-
         public DbSet<Book> Books { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Book>(entity =>
+            {
+                entity.ToTable("Books");
+
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ISBN)
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.Genre)
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(500);
+
+                entity.Property(e => e.Author)
+                    .HasMaxLength(100);
+
+                entity.Property(e => e.BorrowedTime)
+                    .IsRequired();
+
+                entity.Property(e => e.ReturnTime)
+                    .IsRequired();
+            });
+        }
     }
 }
