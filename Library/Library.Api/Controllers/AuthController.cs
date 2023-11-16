@@ -53,31 +53,31 @@ namespace Library.Api.Controllers
                 return BadRequest("Wrong password.");
             }
 
-            string token = CreateToken(user);
+            string token = _userService.CreateToken(user);
 
             return Ok(token);
         }
 
-        private string CreateToken(User user)
-        {
-            List<Claim> claims = new List<Claim> {
-                new Claim(ClaimTypes.Name, user.Username),
-            };
+        //private string CreateToken(User user)
+        //{
+        //    List<Claim> claims = new List<Claim> {
+        //        new Claim(ClaimTypes.Name, user.Username),
+        //    };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value!));
+        //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+        //        _configuration.GetSection("AppSettings:Token").Value!));
 
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+        //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
-            var token = new JwtSecurityToken(
-                    claims: claims,
-                    expires: DateTime.Now.AddDays(1),
-                    signingCredentials: creds
-                );
+        //    var token = new JwtSecurityToken(
+        //            claims: claims,
+        //            expires: DateTime.Now.AddDays(1),
+        //            signingCredentials: creds
+        //        );
 
-            var jwt = new JwtSecurityTokenHandler().WriteToken(token);
+        //    var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            return jwt;
-        }
+        //    return jwt;
+        //}
     }
 }
