@@ -9,17 +9,17 @@ namespace Library.Api.Handlers
     public class GetBookByIsbnHandler : IRequestHandler<GetBookByIsbnQuery, Book>
     {
 
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IBookRepository _books;
         private readonly IMapper _mapper;
 
-        public GetBookByIsbnHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetBookByIsbnHandler(IBookRepository books, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _books = books;
             _mapper = mapper;
         }
         public async Task<Book> Handle(GetBookByIsbnQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Books.GetByISBN(request.ISBN);
+            return await _books.GetByISBN(request.ISBN);
         }
     }
 }

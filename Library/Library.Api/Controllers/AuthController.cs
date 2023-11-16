@@ -1,10 +1,12 @@
 ﻿using Library.Api.DTOs;
-using Library.Api.Models;
 using Library.Api.Services;
+using Library.DataService.Repositories.Interfaces;
+using Library.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text;
 
@@ -12,14 +14,13 @@ namespace Library.Api.Controllers
 {
     public class AuthController : ControllerBase
     {
-        public static User user = new User();
-        private readonly IConfiguration _configuration;
         private readonly IUserService _userService;
+        private readonly IUserRepository _users;
 
-        public AuthController(IConfiguration configuration, IUserService userService)
+        public AuthController(IUserService userService, IUserRepository users)
         {
-            _configuration = configuration;
             _userService = userService;
+            _users = users;
         }
 
         [HttpGet, Authorize]
@@ -29,21 +30,27 @@ namespace Library.Api.Controllers
         }
 
         [HttpPost("register")]
-        public ActionResult<User> Register(UserDto request)
+        public async Task<ActionResult<User>> Register(UserDto request)
         {
+            var user = new User();
+
             string passwordHash
                 = BCrypt.Net.BCrypt.HashPassword(request.Password);
 
             user.Username = request.Username;
             user.PasswordHash = passwordHash;
 
+            if (!await _users.Add(user))
+                return BadRequest();
+
             return Ok(user);
         }
 
         [HttpPost("login")]
-        public ActionResult<User> Login(UserDto request)
+        public async Task<ActionResult<User>> Login(UserDto request)
         {
-            if (user.Username != request.Username)
+            var user = await _users.GetByName(request.Username);
+            if (user is null)
             {
                 return BadRequest("User not found.");
             }

@@ -1,4 +1,4 @@
-﻿using Library.Api.Models;
+﻿using Library.Domain.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

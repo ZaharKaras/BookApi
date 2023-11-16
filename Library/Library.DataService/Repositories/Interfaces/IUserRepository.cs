@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Library.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Library.DataService.Repositories.Interfaces
 {
-    public interface IUnitOfWork
+    public interface IUserRepository : IGenericRepository<User>
     {
-        IBookRepository Books { get; }
+        Task<User?> GetByName(string name);
     }
 }

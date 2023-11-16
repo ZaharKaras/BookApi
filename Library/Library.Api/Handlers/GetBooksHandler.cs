@@ -8,17 +8,17 @@ namespace Library.Api.Handlers
 {
     public class GetBooksHandler : IRequestHandler<GetBooksQuery, IEnumerable<Book>>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IBookRepository _books;
         private readonly IMapper _mapper;
 
-        public GetBooksHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public GetBooksHandler(IBookRepository books, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _books = books;
             _mapper = mapper;
         }
         public async Task<IEnumerable<Book>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _unitOfWork.Books.GetAll();
+            return await _books.GetAll();
         }
     }
 }

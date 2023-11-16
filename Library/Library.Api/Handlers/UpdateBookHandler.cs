@@ -9,12 +9,12 @@ namespace Library.Api.Handlers
 {
     public class UpdateBookHandler : IRequestHandler<UpdateBookRequest, bool>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IBookRepository _books;
         private readonly IMapper _mapper;
 
-        public UpdateBookHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public UpdateBookHandler(IBookRepository books, IMapper mapper)
         {
-            _unitOfWork = unitOfWork;
+            _books = books;
             _mapper = mapper;
         }
         public async Task<bool> Handle(UpdateBookRequest request, CancellationToken cancellationToken)
@@ -22,7 +22,7 @@ namespace Library.Api.Handlers
             var book = _mapper.Map<Book>(request.Book);
             book.Id = request.Id;
 
-            return await _unitOfWork.Books.Update(book);
+            return await _books.Update(book);
         }
     }
 }

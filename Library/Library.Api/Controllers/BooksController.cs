@@ -17,14 +17,10 @@ namespace Library.Api.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
         private readonly IMediator _mediator;
 
-        public BooksController(IUnitOfWork unitOfWork, IMapper mapper, IMediator mediator)
+        public BooksController(IMediator mediator)
         {
-            _unitOfWork = unitOfWork;
-            _mapper = mapper;
             _mediator = mediator;
         }
 
