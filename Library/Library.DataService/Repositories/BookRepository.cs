@@ -19,57 +19,41 @@ namespace Library.DataService.Repositories
         public async Task<Book?> GetByISBN(string ISBN)
         {
             return await _dbSet.FirstOrDefaultAsync(x => x.ISBN == ISBN);
-
         }
 
-        public override async Task<bool> Delete(int id)
-        {
-            try
-            {
-                var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+        //public override async Task<bool> Delete(int id)
+        //{
+        //    var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
 
-                if (result is null)
-                {
-                    return false;
-                }
+        //    if (result is null)
+        //    {
+        //        return false;
+        //    }
 
-                _context.Books.Remove(result);
-                await _context.SaveChangesAsync();
-                return true;
+        //    _context.Books.Remove(result);
+        //    await _context.SaveChangesAsync();
+        //    return true;
 
-            }
-            catch(Exception ex)
-            {
-                throw;
-            }
-            
-        }
+        //}
 
-        public override async Task<bool> Update(Book entity)
-        {
-            try
-            {
-                var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
+        //public override async Task<bool> Update(Book entity)
+        //{
+        //    var result = await _dbSet.FirstOrDefaultAsync(x => x.Id == entity.Id);
 
-                if (result is null)
-                    return false;
+        //    if (result is null)
+        //        return false;
 
-                result.ISBN = entity.ISBN;
-                result.Name = entity.Name;
-                result.Description = entity.Description;
-                result.Author = entity.Author;
-                result.Genre = entity.Genre;
-                result.BorrowedTime = entity.BorrowedTime;
-                result.ReturnTime = entity.ReturnTime;
+        //    result.ISBN = entity.ISBN;
+        //    result.Name = entity.Name;
+        //    result.Description = entity.Description;
+        //    result.Author = entity.Author;
+        //    result.Genre = entity.Genre;
+        //    result.BorrowedTime = entity.BorrowedTime;
+        //    result.ReturnTime = entity.ReturnTime;
 
-                await _context.SaveChangesAsync();
+        //    await _context.SaveChangesAsync();
 
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
+        //    return true;
+        //}
     }
 }

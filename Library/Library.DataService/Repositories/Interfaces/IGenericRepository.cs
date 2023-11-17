@@ -8,6 +8,7 @@ namespace Library.DataService.Repositories.Interfaces
 {
     public interface IGenericRepository<T> where T : class
     {
+        Task<bool> IsExist(int id);
         Task<IEnumerable<T>> GetAll();
         Task<T?> GetById(int id);
         Task<bool> Add(T entity);

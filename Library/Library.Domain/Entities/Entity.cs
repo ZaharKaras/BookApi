@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Library.Domain.Entities
 {
-    public class User :Entity
+    public class Entity
     {
-        public string Username { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
+        public int Id { get; set; }
     }
 }

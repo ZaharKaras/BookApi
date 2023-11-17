@@ -1,3 +1,4 @@
+using Library.Api.Middlewares;
 using Library.Api.Services;
 using Library.DataService.Data;
 using Library.DataService.Repositories;
@@ -65,6 +66,7 @@ var app = builder.Build();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseMiddleware<CustomExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
