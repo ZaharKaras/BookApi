@@ -18,7 +18,14 @@ namespace Library.Api.Handlers
         }
         public async Task<IEnumerable<Book>> Handle(GetBooksQuery request, CancellationToken cancellationToken)
         {
-            return await _books.GetAll();
+            try
+            {
+                return await _books.GetAll();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
         }
     }
 }

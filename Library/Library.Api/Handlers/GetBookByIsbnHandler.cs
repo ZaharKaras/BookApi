@@ -19,7 +19,14 @@ namespace Library.Api.Handlers
         }
         public async Task<Book> Handle(GetBookByIsbnQuery request, CancellationToken cancellationToken)
         {
-            return await _books.GetByISBN(request.ISBN);
+            try
+            {
+                return await _books.GetByISBN(request.ISBN);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
         }
     }
 }

@@ -19,11 +19,19 @@ namespace Library.Api.Handlers
         }
         public async Task<Book> Handle(CreateBookRequest request, CancellationToken cancellationToken)
         {
-            var book = _mapper.Map<Book>(request.Book);
+            try
+            {
+                var book = _mapper.Map<Book>(request.Book);
 
-            await _books.Add(book);
+                await _books.Add(book);
 
-            return book;
+                return book;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+            
         }
     }
 }

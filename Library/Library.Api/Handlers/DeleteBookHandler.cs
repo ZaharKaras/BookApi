@@ -17,12 +17,20 @@ namespace Library.Api.Handlers
         }
         public async Task<bool> Handle(DeleteBookRequest request, CancellationToken cancellationToken)
         {
-            var book = await _books.GetById(request.Id);
+            try
+            {
+                var book = await _books.GetById(request.Id);
 
-            if (book is null)
-                return false;
+                if (book is null)
+                    return false;
 
-            return await _books.Delete(request.Id);
+                return await _books.Delete(request.Id);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception($"Error: {ex.Message}");
+            }
+            
         }
     }
 }
