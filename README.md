@@ -13,7 +13,7 @@ cd Library
 ```
 Go to console
 ```sh
-docker compose up
+docker compose up --build
 ```
 Go to Web Browser
 ```sh
