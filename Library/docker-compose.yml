@@ -13,6 +13,7 @@ services:
       - "8088:80" 
     build:
       context: .
+    command: bash -c "dotnet ef database update && dotnet run"
     networks:
       - dev
   app_db:

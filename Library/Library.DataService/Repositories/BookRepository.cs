@@ -18,7 +18,8 @@ namespace Library.DataService.Repositories
 
         public async Task<Book?> GetByISBN(string ISBN)
         {
-            return await _dbSet.FirstOrDefaultAsync(x => x.ISBN == ISBN);
+            var book = await _dbSet.FirstOrDefaultAsync(x => x.ISBN == ISBN);
+            return book;
         }
 
         //public override async Task<bool> Delete(int id)

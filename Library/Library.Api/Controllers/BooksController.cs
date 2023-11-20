@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection.Metadata.Ecma335;
+using System.Security.Claims;
 
 namespace Library.Api.Controllers
 {
@@ -69,7 +70,9 @@ namespace Library.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var command = new CreateBookRequest(bookDto);
+            var name = User.FindFirstValue(ClaimTypes.Name);
+
+            var command = new CreateBookRequest(bookDto, name!);
             var result = await _mediator.Send(command);
 
             return CreatedAtAction(nameof(GetBookById), new {id = result.Id}, result);
@@ -81,7 +84,9 @@ namespace Library.Api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var command = new UpdateBookRequest(bookDto, id);
+            var name = User.FindFirstValue(ClaimTypes.Name);
+
+            var command = new UpdateBookRequest(bookDto, name!, id);
             var result = await _mediator.Send(command);
 
             if(result is false)

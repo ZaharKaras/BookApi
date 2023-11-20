@@ -22,6 +22,13 @@ namespace Library.Api.Handlers
             try
             {
                 var book = _mapper.Map<Book>(request.Book);
+                book.Author = request.Author;
+
+                var existBook = _books.GetByISBN(book.ISBN!);
+                if (existBook.Result != null)
+                {
+                    throw new Exception("Such an isbn already exists!");
+                }
 
                 await _books.Add(book);
 

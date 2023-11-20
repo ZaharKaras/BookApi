@@ -23,7 +23,7 @@ namespace Library.DataService.Data
 
             builder.Property(e => e.PasswordHash)
                 .IsRequired()
-                .HasMaxLength(50);
+                .HasMaxLength(100);
         }
     }
 }
